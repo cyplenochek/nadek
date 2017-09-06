@@ -1,5 +1,5 @@
 classes:
-# this needs to be modified to reflect the name of the project after 'cluster'
+# 2this needs to be modified to reflect the name of the project after 'cluster'
 - cluster.nadek.com
 parameters:
   _param:

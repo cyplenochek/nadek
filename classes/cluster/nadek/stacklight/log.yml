@@ -7,7 +7,7 @@ classes:
 - system.haproxy.proxy.listen.elasticsearch
 - service.haproxy.proxy.single
 - system.keepalived.cluster.instance.stacklight_log_vip
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     keepalived_stacklight_log_vip_address: ${_param:stacklight_log_address}

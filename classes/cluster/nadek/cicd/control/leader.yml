@@ -51,5 +51,5 @@ classes:
   - system.rundeck.client
   - system.rundeck.client.project.cicd
 
-  - cluster.nadek.com.infra
-  - cluster.nadek.com.cicd.control
+  - cluster.nadek.infra
+  - cluster.nadek.cicd.control

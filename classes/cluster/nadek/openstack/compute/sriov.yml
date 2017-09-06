@@ -1,4 +1,4 @@
 classes:
 - system.nova.compute.nfv.sriov
-- cluster.nadek.com.openstack.compute
+- cluster.nadek.openstack.compute
 - system.neutron.compute.nfv.sriov

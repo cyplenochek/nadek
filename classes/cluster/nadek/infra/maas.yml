@@ -1,7 +1,7 @@
 
 classes:
 - system.maas.region.single
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   linux:
     network:

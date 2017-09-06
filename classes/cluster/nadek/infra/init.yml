@@ -9,11 +9,11 @@ classes:
 #- system.openssh.server.team.stacklight
 #- system.openssh.server.team.mmo_devops
 - system.rsyslog.client.single
-- cluster.nadek.com.openstack
-- cluster.nadek.com.opencontrail
-- cluster.nadek.com.stacklight
-- cluster.nadek.com.stacklight.client
-- cluster.nadek.com.cicd
+- cluster.nadek.openstack
+- cluster.nadek.opencontrail
+- cluster.nadek.stacklight
+- cluster.nadek.stacklight.client
+- cluster.nadek.cicd
 parameters:
   _param:
     # TODO: Uncomment next line "linux_system_user_sudo: true" during the deployment. Don't set it "false" after, but rather remove at all.
@@ -27,7 +27,7 @@ parameters:
     infra_config_deploy_address: 10.229.16.134
 
     cluster_domain: nadek.com
-    cluster_name: nadek.com
+    cluster_name: nadek
     cluster_public_host: ${_param:openstack_proxy_address}
 
     control_network_netmask: 255.255.255.0
@@ -46,7 +46,7 @@ parameters:
     infra_maas_node01_deploy_address: 10.167.4.91
     infra_maas_node01_hostname: mas01
     maas_admin_username: mirantis
-    maas_admin_password: wwwwwwwwwwwwwwww
+    maas_admin_password: BBBBBBBBBBBBBBBB
     maas_db_password: REPLACE_BY_GENERATED_VALUE_DURING_INSTALL
     infra_kvm_address: 10.167.4.240
     infra_kvm_node01_address: 10.167.4.241

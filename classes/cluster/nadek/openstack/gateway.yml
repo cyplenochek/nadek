@@ -6,7 +6,7 @@ classes:
 - system.linux.system.repo.sensu
 - system.neutron.gateway.cluster
 - system.neutron.gateway.notification.messagingv2
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     interface_mtu: 1500

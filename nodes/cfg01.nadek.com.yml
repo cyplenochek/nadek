@@ -1,6 +1,6 @@
 classes:
 # 2this needs to be modified to reflect the name of the project after 'cluster'
-- nadek.com
+- cluster.nadek.infra.config
 parameters:
   _param:
     linux_system_codename: xenial

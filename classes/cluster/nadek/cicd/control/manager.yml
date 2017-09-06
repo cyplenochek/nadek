@@ -1,0 +1,4 @@
+classes:
+  - system.docker.swarm.manager
+  - cluster.nadek.infra
+  - cluster.nadek.cicd.control

@@ -80,17 +80,17 @@ parameters:
     cluster_node03_name: ${_param:cicd_control_node03_hostname}
     cluster_node03_address: ${_param:cicd_control_node03_address}
     keepalived_vip_virtual_router_id: 180
-    keepalived_vip_password: oooooooooooooooo
+    keepalived_vip_password: XXXXXXXXXXXXXXXX
     keepalived_vip_interface: ens3
     cluster_vip_address: ${_param:control_vip_address}
     control_vip_address: ${_param:cicd_control_address}
     cluster_public_host: ${_param:control_vip_address}
     salt_api_password: 19JACdvPFlHIbqHkL59EizK2pknE8f6D
     # Docker images and versions
-    docker_registry_http_secret: oooooooooooooooo
+    docker_registry_http_secret: XXXXXXXXXXXXXXXX
     # CI/CD service databases
-    mysql_admin_password: oooooooooooooooo
-    mysql_gerrit_password: oooooooooooooooo
+    mysql_admin_password: XXXXXXXXXXXXXXXX
+    mysql_gerrit_password: XXXXXXXXXXXXXXXX
 
     # Proxy
     cluster_ssl_certificate:
@@ -109,9 +109,9 @@ parameters:
     openldap_organisation: "${_param:cluster_name}"
     openldap_dn: "dc=deployment-name,dc=local"
     openldap_domain: "deployment-name.local"
-    openldap_admin_password: oooooooooooooooo
-    openldap_config_password: oooooooooooooooo
-    openldap_readonly_password: oooooooooooooooo
+    openldap_admin_password: XXXXXXXXXXXXXXXX
+    openldap_config_password: XXXXXXXXXXXXXXXX
+    openldap_readonly_password: XXXXXXXXXXXXXXXX
 
     # Jenkins
     jenkins_slave_user: admin
@@ -177,7 +177,7 @@ parameters:
 
     # PostgreSQL
     docker_image_postgresql: library/postgres:9.6
-    postgresql_admin_user_password: oooooooooooooooo
+    postgresql_admin_user_password: XXXXXXXXXXXXXXXX
     postgresql_client_user: ${_param:postgresql_admin_user}
     postgresql_client_password: ${_param:postgresql_admin_user_password}
     postgresql_client_host: ${_param:haproxy_postgresql_bind_host}
@@ -186,7 +186,7 @@ parameters:
     # Pushkin
     docker_image_pushkin: docker-prod-local.artifactory.mirantis.com/mirantis/oss/pushkin:latest
     pushkin_db_user: pushkin
-    pushkin_db_user_password: oooooooooooooooo
+    pushkin_db_user_password: XXXXXXXXXXXXXXXX
     pushkin_db_host: ${_param:haproxy_postgresql_bind_host}
     #..WebHook notification senders
     webhook_from: 
@@ -204,7 +204,7 @@ parameters:
     docker_image_security_monkey_api: docker-prod-local.artifactory.mirantis.com/mirantis/oss/security-monkey-api:latest
     docker_image_security_monkey_scheduler: docker-prod-local.artifactory.mirantis.com/mirantis/oss/security-monkey-scheduler:latest
     secmonkey_db_user: secmonkey
-    secmonkey_db_user_password: oooooooooooooooo
+    secmonkey_db_user_password: XXXXXXXXXXXXXXXX
     secmonkey_db_host: ${_param:haproxy_postgresql_bind_host}
     security_monkey_openstack:
       username: ${_param:oss_openstack_username}
@@ -216,7 +216,7 @@ parameters:
     docker_image_janitor_monkey: docker-prod-local.artifactory.mirantis.com/mirantis/oss/janitor-monkey:latest
     docker_image_mongodb: library/mongo:3.4
     docker_mongodb_admin_username: admin
-    docker_mongodb_admin_password: oooooooooooooooo
+    docker_mongodb_admin_password: XXXXXXXXXXXXXXXX
     janitor_monkey_mongodb_host: ${_param:haproxy_mongodb_bind_host}
     janitor_monkey_openstack:
       username: ${_param:oss_openstack_username}
@@ -228,7 +228,7 @@ parameters:
     # Rundeck
     docker_image_rundeck: docker-prod-local.artifactory.mirantis.com/mirantis/oss/rundeck:latest
     rundeck_db_user: rundeck
-    rundeck_db_user_password: oooooooooooooooo
+    rundeck_db_user_password: XXXXXXXXXXXXXXXX
     rundeck_db_host: ${_param:haproxy_postgresql_bind_host}
     rundeck_postgresql_username: ${_param:rundeck_db_user}
     rundeck_postgresql_password: ${_param:rundeck_db_user_password}

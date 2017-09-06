@@ -6,7 +6,7 @@ classes:
 - system.linux.system.repo.sensu
 - system.rabbitmq.server.cluster
 - system.rabbitmq.server.vhost.openstack
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     keepalived_vip_interface: ens3

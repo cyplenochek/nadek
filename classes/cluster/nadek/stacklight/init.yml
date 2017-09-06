@@ -7,24 +7,24 @@ parameters:
     heka_aggregator_host: ${_param:stacklight_monitor_address}
     aggregator_port: 5565
     grafana_user: admin
-    grafana_password: VVVVVVVVVVVVVVVV
+    grafana_password: KKKKKKKKKKKKKKKK
     cluster_elasticsearch_port: 9200
     cluster_kibana_port: 5601
     cluster_grafana_port: 3000
-    mysql_grafana_password: VVVVVVVVVVVVVVVV
+    mysql_grafana_password: KKKKKKKKKKKKKKKK
     grafana_influxdb_host: ${_param:stacklight_telemetry_address}
     elasticsearch_port: 9200
-    influxdb_stacklight_password: VVVVVVVVVVVVVVVV
-    influxdb_admin_password: VVVVVVVVVVVVVVVV
+    influxdb_stacklight_password: KKKKKKKKKKKKKKKK
+    influxdb_admin_password: KKKKKKKKKKKKKKKK
     influxdb_port: 8086
     influxdb_database: lma
     influxdb_user: lma
-    influxdb_password: VVVVVVVVVVVVVVVV
-    stacklight_monitor_rabbitmq_password: VVVVVVVVVVVVVVVV
-    stacklight_monitor_uchiwa_password: VVVVVVVVVVVVVVVV
-    stacklight_log_keepalived_password: VVVVVVVVVVVVVVVV
-    stacklight_monitor_keepalived_password: VVVVVVVVVVVVVVVV
-    stacklight_telemetry_keepalived_password: VVVVVVVVVVVVVVVV
+    influxdb_password: KKKKKKKKKKKKKKKK
+    stacklight_monitor_rabbitmq_password: KKKKKKKKKKKKKKKK
+    stacklight_monitor_uchiwa_password: KKKKKKKKKKKKKKKK
+    stacklight_log_keepalived_password: KKKKKKKKKKKKKKKK
+    stacklight_monitor_keepalived_password: KKKKKKKKKKKKKKKK
+    stacklight_telemetry_keepalived_password: KKKKKKKKKKKKKKKK
     stacklight_environment: ${_param:cluster_domain}
 
     # Stacklight Monitor

@@ -1,7 +1,7 @@
 classes:
 - system.horizon.server.single
 #- system.horizon.server.plugin.theme
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     horizon_site_branding: OpenStack Dashboard

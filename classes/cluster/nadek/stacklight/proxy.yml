@@ -3,4 +3,4 @@ classes:
 - system.nginx.server.proxy.stacklight.kibana
 - system.nginx.server.proxy.stacklight.uchiwa
 - system.salt.minion.cert.proxy
-- cluster.nadek.com.infra
+- cluster.nadek.infra

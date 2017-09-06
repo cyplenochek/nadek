@@ -23,7 +23,7 @@ classes:
 - system.haproxy.proxy.listen.stacklight.uchiwa
 - service.haproxy.proxy.single
 - system.keepalived.cluster.instance.stacklight_monitor_vip
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     collectd_remote_collector_host: ${_param:stacklight_monitor_address}

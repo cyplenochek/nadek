@@ -1,6 +1,6 @@
 classes:
 - system.linux.system.repo.mcp.extra
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   linux:
     network:

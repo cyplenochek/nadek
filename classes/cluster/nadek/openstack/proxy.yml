@@ -16,9 +16,9 @@ classes:
 - system.salt.minion.cert.proxy.pki
 - system.sphinx.server.doc.reclass
 - service.keepalived.cluster.single
-- cluster.nadek.com.infra
-- cluster.nadek.com.openstack.dashboard
-- cluster.nadek.com.stacklight.proxy
+- cluster.nadek.infra
+- cluster.nadek.openstack.dashboard
+- cluster.nadek.stacklight.proxy
 parameters:
   _param:
     keepalived_vip_interface: ens3

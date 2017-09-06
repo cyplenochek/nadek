@@ -7,7 +7,7 @@ classes:
 - system.ceilometer.agent.cluster
 - system.nova.compute.notification.messagingv2
 - system.neutron.compute.cluster
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     cluster_vip_address: ${_param:openstack_control_address}

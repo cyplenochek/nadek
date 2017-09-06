@@ -25,7 +25,7 @@ classes:
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.glance
 - system.glusterfs.client.volume.keystone
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     keepalived_vip_interface: ens3

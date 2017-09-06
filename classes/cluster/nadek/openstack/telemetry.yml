@@ -8,7 +8,7 @@ classes:
 - system.heka.ceilometer_collector.single
 - system.aodh.server.cluster
 - system.ceilometer.server.cluster
-- cluster.nadek.com.infra
+- cluster.nadek.infra
 parameters:
   _param:
     keepalived_openstack_telemetry_vip_address: ${_param:openstack_telemetry_address}

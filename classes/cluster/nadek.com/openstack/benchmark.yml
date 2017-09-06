@@ -1,0 +1,9 @@
+classes:
+- system.linux.system.repo.mcp.extra
+- cluster.nadek.com.infra
+parameters:
+  linux:
+    network:
+      interface:
+        eth0: ${_param:linux_dhcp_interface}
+        eth1: ${_param:linux_single_interface}

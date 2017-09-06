@@ -1,0 +1,260 @@
+
+classes:
+  - system.linux.system.haveged
+  - system.linux.system.repo.glusterfs
+  - system.glusterfs.client.cluster
+  - system.glusterfs.client.volume.aptly
+  - system.glusterfs.client.volume.gerrit
+  - system.glusterfs.client.volume.jenkins
+  - system.glusterfs.client.volume.registry
+  - system.glusterfs.client.volume.salt_pki
+  - system.glusterfs.client.volume.mysql
+  - system.glusterfs.client.volume.openldap
+  - system.glusterfs.client.volume.devops_portal
+  - system.glusterfs.client.volume.elasticsearch
+  - system.glusterfs.client.volume.postgresql
+  - system.glusterfs.client.volume.pushkin
+  - system.glusterfs.client.volume.rundeck
+  - system.glusterfs.client.volume.security_monkey
+  - system.glusterfs.client.volume.mongodb
+ #- system.glusterfs.client.volume.salt
+  # Docker
+  - system.docker.host
+
+  # Generate aptly-publisher config to use for jenkins slaves
+  - system.aptly.client.publisher
+
+  # Keepalived
+  - system.keepalived.cluster.instance.cicd_control_vip
+
+  # HAProxy
+  - system.salt.minion.cert.proxy.cicd
+  - system.haproxy.proxy.single
+  - system.haproxy.proxy.listen.cicd.aptly
+  - system.haproxy.proxy.listen.cicd.gerrit
+  - system.haproxy.proxy.listen.cicd.jenkins
+  - system.haproxy.proxy.listen.docker.registry
+  - system.haproxy.proxy.listen.docker.visualizer
+  - system.haproxy.proxy.listen.openldap
+  - system.haproxy.proxy.listen.phpldapadmin
+  - system.haproxy.proxy.listen.mysql
+  - system.haproxy.proxy.listen.stats
+  - system.haproxy.proxy.listen.oss.devops_portal
+  - system.haproxy.proxy.listen.oss.elasticsearch
+  - system.haproxy.proxy.listen.oss.postgresql
+  - system.haproxy.proxy.listen.oss.pushkin
+  - system.haproxy.proxy.listen.oss.rundeck
+  - system.haproxy.proxy.listen.oss.security_monkey
+  - system.haproxy.proxy.listen.oss.janitor_monkey
+  - system.haproxy.proxy.listen.oss.mongodb
+
+  # OSS Tooling
+  - system.docker.swarm.stack.devops_portal
+  - system.docker.swarm.stack.elasticsearch
+  - system.docker.swarm.stack.postgresql
+  - system.docker.swarm.stack.pushkin
+  - system.docker.swarm.stack.rundeck
+  - system.docker.swarm.stack.security_monkey
+  - system.docker.swarm.stack.janitor_monkey
+
+  # Docker networks
+  - system.docker.swarm.network.runbook
+
+  - system.devops_portal.service.elasticsearch
+  - system.devops_portal.service.gerrit
+  - system.devops_portal.service.jenkins
+  - system.devops_portal.service.pushkin
+  - system.devops_portal.service.rundeck
+  - system.devops_portal.service.security_monkey
+  - system.devops_portal.service.janitor_monkey
+
+  # Rundeck
+  - system.rundeck.client.runbook
+
+parameters:
+  _param:
+    cluster_node01_name: ${_param:cicd_control_node01_hostname}
+    cluster_node01_address: ${_param:cicd_control_node01_address}
+    cluster_node02_name: ${_param:cicd_control_node02_hostname}
+    cluster_node02_address: ${_param:cicd_control_node02_address}
+    cluster_node03_name: ${_param:cicd_control_node03_hostname}
+    cluster_node03_address: ${_param:cicd_control_node03_address}
+    keepalived_vip_virtual_router_id: 180
+    keepalived_vip_password: oooooooooooooooo
+    keepalived_vip_interface: ens3
+    cluster_vip_address: ${_param:control_vip_address}
+    control_vip_address: ${_param:cicd_control_address}
+    cluster_public_host: ${_param:control_vip_address}
+    salt_api_password: 19JACdvPFlHIbqHkL59EizK2pknE8f6D
+    # Docker images and versions
+    docker_registry_http_secret: oooooooooooooooo
+    # CI/CD service databases
+    mysql_admin_password: oooooooooooooooo
+    mysql_gerrit_password: oooooooooooooooo
+
+    # Proxy
+    cluster_ssl_certificate:
+      enabled: true
+      pem_file: /etc/haproxy/ssl/${_param:cluster_public_host}-all.pem
+    haproxy_bind_address: ${_param:cluster_vip_address}
+    haproxy_mysql_source_port: 13306
+
+    # Aptly
+    aptly_gpg_keypair_id: none
+    aptly_gpg_passphrase: none
+    aptly_server_secure: false
+    aptly_gpg_public_key: none
+    aptly_gpg_private_key: none
+    # OpenLDAP
+    openldap_organisation: "${_param:cluster_name}"
+    openldap_dn: "dc=deployment-name,dc=local"
+    openldap_domain: "deployment-name.local"
+    openldap_admin_password: oooooooooooooooo
+    openldap_config_password: oooooooooooooooo
+    openldap_readonly_password: oooooooooooooooo
+
+    # Jenkins
+    jenkins_slave_user: admin
+    jenkins_client_user: admin
+    jenkins_admin_password: ${_param:openldap_admin_password}
+    jenkins_security_ldap_server: ${_param:cluster_vip_address}
+    jenkins_security_ldap_root_dn: ${_param:openldap_dn}
+    jenkins_security_ldap_manager_dn: "cn=admin,${_param:openldap_dn}"
+    jenkins_security_ldap_manager_password: ${_param:openldap_admin_password}
+    jenkins_slave_password: ${_param:jenkins_admin_password}
+    jenkins_client_password: ${_param:jenkins_admin_password}
+    jenkins_admin_email: ${_param:admin_email}
+    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+UJG/S348NmgK08UtrZ0yV4r+5c8uT0AXKPkzJolGGIFRANSZXnxUHk/36CU/LNcH30homxUmYPOW7BigId+l8RAsMKcOqoepdeRwrRDCeIp8KO26KKh+PWYwTAktccDwmF4xBZ0PijoOsvEs4C69YaMUIvtMduTnLEXJrai+UjaW0Yxid55HNnTqm3972ZBI19icNTl+soY6K2QIKlDWVQVMimFTeOJa7hRsO1J6cQuBlTSVgHvBHz2V/Gb3ZuHAe7k0ed6XYVbuOHaOxKVqCEec4jjdpD1vHQ5OPLTq3Mfa4w3M4jPG6x9iEvaB6raJOcSM374dOItEr1FFATaN
+    jenkins_admin_private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAvlCRv0t+PDZoCtPFLa2dMleK/uXPLk9AFyj5MyaJRhiBUQDU
+      mV58VB5P9+glPyzXB99IaJsVJmDzluwYoCHfpfEQLDCnDqqHqXXkcK0QwniKfCjt
+      uiiofj1mMEwJLXHA8JheMQWdD4o6DrLxLOAuvWGjFCL7THbk5yxFya2ovlI2ltGM
+      YneeRzZ06pt/e9mQSNfYnDU5frKGOitkCCpQ1lUFTIphU3jiWu4UbDtSenELgZU0
+      lYB7wR89lfxm92bhwHu5NHnel2FW7jh2jsSlaghHnOI43aQ9bx0OTjy06tzH2uMN
+      zOIzxusfYhL2geq2iTnEjN++HTiLRK9RRQE2jQIDAQABAoIBAEfsqyhgn5Sh+zAc
+      WKiqtH4SF7W9pE8cJFycX5G1Pqv/FuBGMBLGYrZnvlEyquD1UU7oU7U05wlaGrUv
+      BR9/rcZJFJOez4P7bsnchDkRLwRQCgZicXWpaARNsBEQq2dBVmmXLAHa3UDCPK7R
+      cdRD5WYtQDScA90iEeBMGxPdTaifQi2hbOH8wV9n3bit9D2rhGx84NKzTopMNjW1
+      gg2YXSfOyzTu4Pru/OnaOUHZdPpFZb1kG++uIe3H8EAsPFW6KZke8xopcJUfPsS1
+      gNX25O+gOH20XzA1j52Y/37zl3Pwmgc4Gfh+HKeysxzLkrhqjbVo+jnUB4ZrBuNS
+      ESsvTQECgYEA7lX4MFee0RBDbui0eVXSdncGhMlielAhC6y+dhUMl3/6zSVkOaJj
+      jMIlusJTUgjBEbRxDhWwc6tkqP4HXgYCgs/qYLnN5O5kSd5d28bFRMfzOuDhWWnf
+      NX7IWk5qPbgk31hZd42oROgQF97U/gRPNcNQmqKMhwp6+AZ83MiZH8cCgYEAzGt6
+      fb5YGvr8+cOZ02x612vu9RF1IcUdDLlLRzhM6PakcQDX3yf88XQpOkh49vqs/7nb
+      H64DckwzUwV4tZLlXr2LRAs+t4ZtTNsOJOp7IWSCcaJnG0VAElMiyj4i79gCg2KZ
+      HqzJQn104aWnUcBybUJeawtArd6fAjn4XLNOXwsCgYEAz5/M6jAqhm3okMHgFqOR
+      COp/n0XgqDUN1KHT+gI0SfaPgg9E1ICGwKSRQbTv6NL/fnD23BJA+UMiGaXSvTH3
+      FgYSY9j5aKnUbBVvJnpud5DIb05ggggdDvk3iJQvMT0twfOxXNjm8cBH5MOWQQN4
+      DZnsqglY6ntSzKa6N4v4+RkCgYAwzvjQTUJ8LrF4cVupP52VEhBcM27kQUxOXW+7
+      8ZVrinh5AtqITeP3QuUVJXi8f94OsTHAvqvT/p3ClOvdbtWVaWx3Mrgm2dH/J86Y
+      wePkdTswJra3rDFALtl/sJZm7gyrkj89M8RaO9pMhmENBAZOUCp7JJSs7xrITU8f
+      0zBDQQKBgCOTtDZo8ZG3p5nrYMRkAu6Fs422UWi0RK4CCYwXrSxVT8GFziMwgJ36
+      tlmbWprVxYcH4f/mxZb2SlRQjNPYQZzdRUYDNb/6np4XU9A7SYngaEeVrMvP7/an
+      637XK99vTZLk/hI5nK1KFxSuhYc78J+vq1Ey4kE1Cph5q11IUEtX
+      -----END RSA PRIVATE KEY-----
+    # Jobs params
+    jenkins_gerrit_url: ssh://admin@${_param:haproxy_gerrit_bind_host}:${_param:haproxy_gerrit_ssh_bind_port}
+    jenkins_aptly_api_url: http://${_param:haproxy_aptly_api_bind_host}:${_param:haproxy_aptly_api_bind_port}
+    jenkins_aptly_url: http://${_param:haproxy_aptly_public_bind_host}:${_param:haproxy_aptly_public_bind_port}
+    # Gerrit
+    gerrit_admin_password: ${_param:openldap_admin_password}
+    gerrit_admin_email: ${_param:admin_email}
+    gerrit_public_host: http://${_param:haproxy_gerrit_bind_host}:${_param:haproxy_gerrit_bind_port}
+    gerrit_admin_public_key: ${_param:jenkins_admin_public_key}
+    gerrit_admin_private_key: ${_param:jenkins_admin_private_key}
+    gerrit_auth_type: LDAP
+    gerrit_ldap_server: "ldap://${_param:cluster_vip_address}"
+    gerrit_ldap_bind_user: "cn=admin,${_param:openldap_dn}"
+    gerrit_ldap_bind_password: ${_param:openldap_admin_password}
+    gerrit_ldap_account_base: ou=people,${_param:openldap_dn}
+    gerrit_ldap_group_base: ou=groups,${_param:openldap_dn}
+    # DevOps Portal
+    docker_image_devops_portal: docker-prod-local.artifactory.mirantis.com/mirantis/oss/devops-portal:latest
+
+    # ElasticSearch
+    docker_image_elasticsearch: docker.elastic.co/elasticsearch/elasticsearch:5.4.1
+
+    # PostgreSQL
+    docker_image_postgresql: library/postgres:9.6
+    postgresql_admin_user_password: oooooooooooooooo
+    postgresql_client_user: ${_param:postgresql_admin_user}
+    postgresql_client_password: ${_param:postgresql_admin_user_password}
+    postgresql_client_host: ${_param:haproxy_postgresql_bind_host}
+    postgresql_client_port: ${_param:haproxy_postgresql_bind_port}
+
+    # Pushkin
+    docker_image_pushkin: docker-prod-local.artifactory.mirantis.com/mirantis/oss/pushkin:latest
+    pushkin_db_user: pushkin
+    pushkin_db_user_password: oooooooooooooooo
+    pushkin_db_host: ${_param:haproxy_postgresql_bind_host}
+    #..WebHook notification senders
+    webhook_from: 
+    webhook_recipients: 
+    webhook_sfdc_username: 
+    webhook_login_id: 11
+    webhook_application_id: 23
+
+    # OSS OpenStack
+    oss_openstack_username: admin
+    oss_openstack_password: nova
+    oss_openstack_project: admin
+    oss_openstack_domain_id: default
+    # SecurityMonkey
+    docker_image_security_monkey_api: docker-prod-local.artifactory.mirantis.com/mirantis/oss/security-monkey-api:latest
+    docker_image_security_monkey_scheduler: docker-prod-local.artifactory.mirantis.com/mirantis/oss/security-monkey-scheduler:latest
+    secmonkey_db_user: secmonkey
+    secmonkey_db_user_password: oooooooooooooooo
+    secmonkey_db_host: ${_param:haproxy_postgresql_bind_host}
+    security_monkey_openstack:
+      username: ${_param:oss_openstack_username}
+      password: ${_param:oss_openstack_password}
+      auth_url: http://172.17.16.190/identity/v3
+      user_domain_name: ${_param:oss_openstack_domain_id}
+      project_domain_name: ${_param:oss_openstack_domain_id}
+    # JanitorMonkey
+    docker_image_janitor_monkey: docker-prod-local.artifactory.mirantis.com/mirantis/oss/janitor-monkey:latest
+    docker_image_mongodb: library/mongo:3.4
+    docker_mongodb_admin_username: admin
+    docker_mongodb_admin_password: oooooooooooooooo
+    janitor_monkey_mongodb_host: ${_param:haproxy_mongodb_bind_host}
+    janitor_monkey_openstack:
+      username: ${_param:oss_openstack_username}
+      password: ${_param:oss_openstack_password}
+      auth_url: http://172.17.16.190/identity/v3
+      project_name: ${_param:oss_openstack_project}
+      project_domain_name: ${_param:oss_openstack_domain_id}
+
+    # Rundeck
+    docker_image_rundeck: docker-prod-local.artifactory.mirantis.com/mirantis/oss/rundeck:latest
+    rundeck_db_user: rundeck
+    rundeck_db_user_password: oooooooooooooooo
+    rundeck_db_host: ${_param:haproxy_postgresql_bind_host}
+    rundeck_postgresql_username: ${_param:rundeck_db_user}
+    rundeck_postgresql_password: ${_param:rundeck_db_user_password}
+    rundeck_postgresql_database: rundeck
+    rundeck_postgresql_host: ${_param:rundeck_db_host}
+
+    rundeck_runbook_public_key: <<WILL_BE_GENERATED>>
+    rundeck_runbook_private_key: |
+      <<WILL_BE_GENERATED>>
+    # CIS
+    rundeck_cis_enabled: True
+    rundeck_cis_jobs_repository: https://github.com/Mirantis/rundeck-cis-jobs.git
+    rundeck_cis_jobs_revision: master
+    rundeck_cis_os_auth_url: http://172.17.16.190/identity/v3/auth/tokens
+    rundeck_cis_os_username: ${_param:oss_openstack_username}
+    rundeck_cis_os_password: ${_param:oss_openstack_password}
+    rundeck_cis_os_project_name: ${_param:oss_openstack_project}
+    rundeck_cis_os_domain_id: ${_param:oss_openstack_domain_id}
+    rundeck_cis_os_docker_image: docker-prod-local.artifactory.mirantis.com/mirantis/oss/cis-openstack:latest
+    rundeck_cis_elasticsearch_url: http://${_param:haproxy_elasticsearch_bind_host}:${_param:haproxy_elasticsearch_http_bind_port}
+
+  linux:
+    system:
+      package:
+        ca-certificates-java:
+          version: latest
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}

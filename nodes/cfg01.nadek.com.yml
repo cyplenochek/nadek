@@ -1,6 +1,6 @@
 classes:
 # 2this needs to be modified to reflect the name of the project after 'cluster'
-- cluster.nadek.com
+- nadek.com
 parameters:
   _param:
     linux_system_codename: xenial

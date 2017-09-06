@@ -1,0 +1,38 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.mcp.openstack
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.saltstack.xenial
+- system.linux.system.repo.glusterfs
+- system.linux.system.repo.sensu
+- system.glusterfs.client.cluster
+- system.glusterfs.client.volume.salt_pki
+- system.nginx.server.single
+- system.nginx.server.proxy.openstack_api
+- system.nginx.server.proxy.openstack_vnc
+- system.nginx.server.proxy.openstack_web
+- system.horizon.server.single
+- system.salt.minion.cert.proxy.openstack
+- system.salt.minion.cert.proxy.pki
+- system.sphinx.server.doc.reclass
+- service.keepalived.cluster.single
+- cluster.cluster.nadek.com.infra
+- cluster.cluster.nadek.com.openstack.dashboard
+- cluster.cluster.nadek.com.stacklight.proxy
+parameters:
+  _param:
+    keepalived_vip_interface: ens3
+    keepalived_vip_virtual_router_id: 240
+    nginx_proxy_ssl:
+      enabled: true
+      authority: ${_param:salt_minion_ca_authority}
+      engine: salt
+      mode: secure
+      key_file:  /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.key
+      cert_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}.crt
+      chain_file: /srv/salt/pki/${_param:cluster_name}/${salt:minion:cert:proxy:common_name}-with-chain.crt
+    cluster_vip_address: ${_param:openstack_proxy_address}
+  linux:
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}

@@ -1,0 +1,82 @@
+classes:
+- system.linux.system.repo.ubuntu
+- system.linux.system.repo.elasticsearch
+- system.linux.system.repo.grafana
+- system.linux.system.repo.saltstack.xenial
+- system.linux.system.repo.kibana
+- system.linux.system.repo.mcp.extra
+- system.collectd.remote_client.cluster
+- system.heka.remote_collector.cluster
+- system.heka.remote_collector.output.sensu
+- system.heka.aggregator.cluster
+- system.heka.aggregator.output.sensu
+- system.kibana.server.single
+- system.grafana.server.single
+- system.grafana.server.plugin.piechart
+- system.grafana.client.single
+- system.sensu.client.unsubscribe.collectd
+- system.sensu.server.cluster
+- system.haproxy.proxy.listen.stacklight.kibana
+- system.haproxy.proxy.listen.stacklight.grafana
+- system.haproxy.proxy.listen.stacklight.redis
+- system.haproxy.proxy.listen.stacklight.sensu
+- system.haproxy.proxy.listen.stacklight.uchiwa
+- service.haproxy.proxy.single
+- system.keepalived.cluster.instance.stacklight_monitor_vip
+- cluster.cluster.nadek.com.infra
+parameters:
+  _param:
+    collectd_remote_collector_host: ${_param:stacklight_monitor_address}
+    keepalived_stacklight_monitor_vip_address: ${_param:stacklight_monitor_address}
+    keepalived_stacklight_monitor_vip_password: ${_param:stacklight_monitor_keepalived_password}
+    keepalived_stacklight_monitor_vip_interface: ens3
+    cluster_vip_address: ${_param:stacklight_monitor_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ${_param:stacklight_monitor_node01_hostname}
+    cluster_node01_address: ${_param:stacklight_monitor_node01_address}
+    cluster_node02_hostname: ${_param:stacklight_monitor_node02_hostname}
+    cluster_node02_address: ${_param:stacklight_monitor_node02_address}
+    cluster_node03_hostname: ${_param:stacklight_monitor_node03_hostname}
+    cluster_node03_address: ${_param:stacklight_monitor_node03_address}
+    # Sensu parameters
+    cluster_redis_port: 6379
+    cluster_uchiwa_port: 3001
+  linux:
+    network:
+      interface:
+        ens3: ${_param:linux_single_interface}
+  grafana:
+    server:
+      database:
+        host: ${_param:stacklight_telemetry_address}
+  heka:
+    aggregator:
+      sensu_notification_handler: 'mail'
+      sensu_noop_handler: 'pipe'
+  sensu:
+    server:
+      handler:
+        default:
+          enabled: true
+          set:
+          - pipe
+        pipe:
+          enabled: true
+          command: 'cat /dev/null'
+        mail:
+          enabled: true
+          domain: ${_param:cluster_domain}
+          mail_to: alerts@localhost
+          host: 127.0.0.1
+    dashboard:
+      enabled: true
+      backend:
+        sensu:
+          host: ${_param:single_address}
+          port: 4567
+      bind:
+        address: ${_param:single_address}
+        port: ${_param:cluster_uchiwa_port}
+      admin:
+        username: admin
+        password: ${_param:stacklight_monitor_uchiwa_password}
